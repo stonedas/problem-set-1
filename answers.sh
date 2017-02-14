@@ -23,7 +23,7 @@ echo "answer-2: $answer_2"
 
 cpg="$datasets/bed/cpg.bed.gz"
 
-answer_3=$(zcat $cpg | cut -f4 | uniq -c | wc -l)
+answer_3=$(zcat $cpg | cut -f4 | sort -k4g | uniq -c | wc -l)
 
 echo "answer-3: $answer_3"
 
@@ -31,7 +31,7 @@ echo "answer-3: $answer_3"
 
 sequencerecords="$datasets/fastq/SP1.fq"
 
-answer_4=$(cat $sequencerecords |  grep @cluster | wc -l)
+answer_4=$(grep @cluster $sequencerecords | wc -l)
 
 echo "answer-4: $answer_4" 
 
@@ -39,7 +39,7 @@ echo "answer-4: $answer_4"
 
 words="$datasets/misc/hamlet.txt"
 
-answer_5=$(cat $words | grep bloody | wc -w)
+answer_5=$(grep -i bloody $words | wc -w)
 
 echo "answer-5: $answer_5"
 
@@ -47,7 +47,7 @@ echo "answer-5: $answer_5"
 
 record="$datasets/fasta/sample.fa"
 
-answer_6=$( grep -v '^>' $record | grep '^ACT' $record | wc -c)
+answer_6=$( grep -v '^>' $record | grep 'ACT'| tr -d '\n'|wc -c)
 
 echo "answer-6: $answer_6"
 
